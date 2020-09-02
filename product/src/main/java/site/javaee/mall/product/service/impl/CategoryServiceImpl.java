@@ -21,7 +21,6 @@ import site.javaee.mall.common.utils.Query;
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 
 
-
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<CategoryEntity> page = this.page(
@@ -35,10 +34,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public List<CategoryEntity> listWithTree() {
         //查出所有分类
-        QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.in("cat_id", 1,1433,1434);
-        List<CategoryEntity> categoryEntities = baseMapper.selectList(queryWrapper);
-//        List<CategoryEntity> categoryEntities = baseMapper.selectList(null);
+//        QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.in("cat_id", 1,1433,1434);
+//        List<CategoryEntity> categoryEntities = baseMapper.selectList(queryWrapper);
+        List<CategoryEntity> categoryEntities = baseMapper.selectList(null);
 
         //组装成树形结构
         List<CategoryEntity> level1Menus = categoryEntities.stream().filter((categoryEntity) -> {
@@ -47,7 +46,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             menu.setChildren(getChildren(menu, categoryEntities));
             return menu;
         }).sorted((menu1, menu2) -> {
-            return (menu1.getSort()==null?0:menu1.getSort()) - (menu2.getSort()==null?0:menu2.getSort());
+            return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
         }).collect(Collectors.toList());
 
         return level1Menus;
@@ -57,18 +56,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
 
     //递归查找所有菜单的子菜单
-    private List<CategoryEntity> getChildren(CategoryEntity root,List<CategoryEntity> all){
+    private List<CategoryEntity> getChildren(CategoryEntity root, List<CategoryEntity> all) {
 
         List<CategoryEntity> children = all.stream().filter((categoryEntity) -> {
 //            System.out.println("categoryEntity:"+categoryEntity.getParentCid()+"\t"+categoryEntity);
 //            System.out.println("root:"+root.getCatId()+"\t"+root);
 //            System.out.println(categoryEntity.getParentCid() == root.getCatId());
             return categoryEntity.getParentCid().longValue() == root.getCatId().longValue();
-        }).map((menu)->{
+        }).map((menu) -> {
             menu.setChildren(getChildren(menu, all));
             return menu;
         }).sorted((menu1, menu2) -> {
-            return (menu1.getSort()==null?0:menu1.getSort()) - (menu2.getSort()==null?0:menu2.getSort());
+            return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
         }).collect(Collectors.toList());
 
         return children;
