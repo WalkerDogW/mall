@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: mall-gateway
+
+
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.117.129:8848
+        #主配置文件
+        namespace: 0065df7d-ce04-4969-8823-aa48ccbbb29c
+        group: dev
+        file-extension: yaml
+        extension-configs:
+          - data-id: datasource.yaml
+            group: dev
+            refresh: true
+          - data-id: cloud.yaml
+            group: dev
+            refresh: true
+
+
+

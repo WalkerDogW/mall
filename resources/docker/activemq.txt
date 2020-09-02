@@ -1,0 +1,54 @@
+docker run -d --name activemq -p 61616:61616 -p 8161:8161 webcenter/activemq
+
+
+
+
+
+自启动
+docker update activemq --restart=always
+
+
+
+
+
+修改为auto+nio协议
+docker exec -it activemq bash
+
+vim conf/activemq.xml
+
+<transportConnector name="auto+nio" uri="auto+nio://0.0.0.0:61608?maximumConnections=1000&wireFormat.maxFrameSize=104857600&org.apache.activemq.transport.nio.SeIectorManager.corePoolSize=20&org.apache.activemq.transpot.nio.SeIectorManager.maximumPoolSize=50"/>
+transportConnectors>
+
+
+
+
+
+
+
+JDBC持久化
+docker cp mysql-connector-java-8.0.21.jar activemq:/opt/activemq/lib
+vim /opt/activemq/conf/activemq.xml
+
+<!-- createTableOnStartup=false  默认true会自动创建表，之后改成false -->
+<persistenceAdapter>
+         <jdbcPersistenceAdapter dataSource="#mysql-ds" />
+</persistenceAdapter>
+<!-- 放在broker标签后面 -->
+    <bean id="mysql-ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://192.168.117.129:3316/mall_activemq?relaxAutoCommit=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+        <property name="poolPreparedStatements" value="true"/>
+    </bean>
+
+<!--JDBC-Journal缓存，注释掉persistenceAdapter标签 -->
+<persistenceFactory>
+      <journalPersistenceAdapterFactory
+           journalLogFiles="5"
+           journalLogFileSize="32768"
+           useJournal="true"
+           useQuickJournal="true"
+           dataSource="#mysql-ds"
+           dataDirectory="../activemq-data" />
+</persistenceFactory>

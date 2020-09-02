@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: mall-ware
+
+
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.117.129:8848
+        #主配置文件
+        namespace: bfe18aa3-337b-439e-b02e-1c83914733c2
+        group: dev
+        file-extension: yaml
+        extension-configs:
+          - data-id: datasource.yaml
+            group: dev
+            refresh: true
+          - data-id: cloud.yaml
+            group: dev
+            refresh: true
+
+

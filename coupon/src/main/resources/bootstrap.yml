@@ -1,0 +1,27 @@
+
+
+spring:
+  application:
+    name: mall-coupon
+
+
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.117.129:8848
+        #主配置文件
+        namespace: 40cf1f80-6df8-418b-af00-5b3627b02c6c
+        group: dev
+        file-extension: yaml
+        #次配置文件
+        extension-configs:
+          - data-id: datasource.yaml
+            group: dev
+            refresh: true
+          - data-id: cloud.yaml
+            group: dev
+            refresh: true
+
+
+
+
