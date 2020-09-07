@@ -6,8 +6,8 @@ spring:
   cloud:
     nacos:
       config:
-#        server-addr: 192.168.117.129:8848
-        server-addr: 192.168.100.138:8848
+        server-addr: 192.168.117.129:8848
+#        server-addr: 192.168.100.138:8848
         #主配置文件
         namespace: 4a578b7a-13f4-4d88-8fc2-1c3a6be19288
         group: dev
