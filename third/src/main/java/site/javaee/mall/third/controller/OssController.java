@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import site.javaee.mall.common.utils.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class OssController {
 
 
     @RequestMapping("/policy")
-    public Map<String, String> getPolicy() {
+    public R getPolicy() {
         String host = "https://" + bucket + "." + endpoint;
         // callbackUrl为 上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
 //        String callbackUrl = "http://88.88.88.88:8888";
@@ -69,6 +70,6 @@ public class OssController {
         } finally {
             ossClient.shutdown();
         }
-        return respMap;
+        return R.ok().put("data",respMap);
     }
 }
