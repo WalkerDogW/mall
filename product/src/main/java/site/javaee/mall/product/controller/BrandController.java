@@ -1,9 +1,12 @@
 package site.javaee.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,10 +47,9 @@ public class BrandController {
 
     @RequestMapping("/list2")
     //@RequiresPermissions("product:brand:list")
-    public R list2(@RequestParam Map<String, Object> params){
-        PageUtils page = brandService.queryPage(params);
-        System.out.println(page.getList());
-        return R.ok().put("data", page.getList());
+    public R list2(){
+        List<BrandEntity> list = brandService.list();
+        return R.ok().put("data",list);
     }
     /**
      * 信息
