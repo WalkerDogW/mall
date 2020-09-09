@@ -38,11 +38,17 @@ public class BrandController {
     //@RequiresPermissions("product:brand:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = brandService.queryPage(params);
-
+        System.out.println(page.getList());
         return R.ok().put("page", page);
     }
 
-
+    @RequestMapping("/list2")
+    //@RequiresPermissions("product:brand:list")
+    public R list2(@RequestParam Map<String, Object> params){
+        PageUtils page = brandService.queryPage(params);
+        System.out.println(page.getList());
+        return R.ok().put("data", page.getList());
+    }
     /**
      * 信息
      */
