@@ -45,12 +45,7 @@ public class BrandController {
         return R.ok().put("page", page);
     }
 
-    @RequestMapping("/list2")
-    //@RequiresPermissions("product:brand:list")
-    public R list2(){
-        List<BrandEntity> list = brandService.list();
-        return R.ok().put("data",list);
-    }
+
     /**
      * 信息
      */
