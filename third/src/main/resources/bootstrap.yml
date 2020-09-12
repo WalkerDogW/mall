@@ -7,10 +7,12 @@ spring:
     nacos:
       discovery:
 #        server-addr: 192.168.117.129:8848
-        server-addr: 192.168.100.138:8848
+#        server-addr: 192.168.100.138:8848
+        server-addr: www.mall.com:8848
       config:
 #        server-addr: 192.168.117.129:8848
-        server-addr: 192.168.100.138:8848
+#        server-addr: 192.168.100.138:8848
+        server-addr: www.mall.com:8848
         #主配置文件
         namespace: bd118afb-e84d-4647-823a-ac40081c0519
         group: dev
