@@ -1,3 +1,4 @@
+USE `mall_product`;
 DROP TABLE IF EXISTS `pms_category`;
 
 CREATE TABLE `pms_category` (
