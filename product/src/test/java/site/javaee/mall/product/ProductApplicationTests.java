@@ -1,20 +1,25 @@
 package site.javaee.mall.product;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import site.javaee.mall.product.entity.BrandEntity;
 import site.javaee.mall.product.service.BrandService;
+import site.javaee.mall.product.service.CategoryService;
 
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
+@Slf4j
 class ProductApplicationTests {
 
     @Autowired
     BrandService brandService;
-
+    @Autowired
+    private CategoryService categoryService;
 
 
     @Test
@@ -34,6 +39,13 @@ class ProductApplicationTests {
             System.out.println(item);
         });
 
+    }
+
+
+    @Test
+    void findCatelogPath(){
+        Long[] catelogPath = categoryService.findCatelogPath(225L);
+        log.info("完整路径：{}", Arrays.toString(catelogPath));
     }
 
 }

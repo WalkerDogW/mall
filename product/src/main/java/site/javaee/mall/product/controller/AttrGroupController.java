@@ -15,7 +15,7 @@ import site.javaee.mall.product.entity.AttrGroupEntity;
 import site.javaee.mall.product.service.AttrGroupService;
 import site.javaee.mall.common.utils.PageUtils;
 import site.javaee.mall.common.utils.R;
-
+import site.javaee.mall.product.service.CategoryService;
 
 
 /**
@@ -30,7 +30,8 @@ import site.javaee.mall.common.utils.R;
 public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
-
+    @Autowired
+    private CategoryService categoryService;
     /**
      * 列表
      */
@@ -59,7 +60,9 @@ public class AttrGroupController {
     //@RequiresPermissions("product:attrgroup:info")
     public R info(@PathVariable("attrGroupId") Long attrGroupId){
 		AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
-
+        Long catelogId = attrGroup.getCatelogId();
+        Long[] CatelogPath =  categoryService.findCatelogPath(catelogId);
+        attrGroup.setCatelogPath(CatelogPath);
         return R.ok().put("attrGroup", attrGroup);
     }
 
