@@ -8,7 +8,7 @@ package site.javaee.mall.common.exception;
  */
 public enum BizCodeEnume {
     UNKNOW_EXCEPTION(10000, "系统未知异常"),
-    VALID_EXCEPTION(10001, "参数格式校验失败");
+    VALID_EXCEPTION(10001, "看文档，格式都能搞错，眼睛不要可以捐掉");
 
     private Integer code;
     private String msg;

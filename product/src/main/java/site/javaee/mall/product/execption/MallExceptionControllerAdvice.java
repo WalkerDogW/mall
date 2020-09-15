@@ -37,7 +37,7 @@ public class MallExceptionControllerAdvice {
         return result;
     }
 
-    @ExceptionHandler(value = Exception.class)
+//    @ExceptionHandler(value = Exception.class)
     public R handleException(Exception e) {
         R result = R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(), BizCodeEnume.UNKNOW_EXCEPTION.getMsg());
         log.error(result.toString());

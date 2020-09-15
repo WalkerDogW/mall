@@ -1,8 +1,10 @@
 package site.javaee.mall.product.dao;
 
+import org.apache.ibatis.annotations.Param;
 import site.javaee.mall.product.entity.CategoryBrandRelationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import site.javaee.mall.product.entity.CategoryEntity;
 
 /**
  * 品牌分类关联
@@ -13,5 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CategoryBrandRelationDao extends BaseMapper<CategoryBrandRelationEntity> {
-	
+
+    void updateCategory(@Param("category")CategoryEntity category);
 }
