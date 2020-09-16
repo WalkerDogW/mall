@@ -34,6 +34,8 @@ CREATE TABLE `pms_attr`  (
   PRIMARY KEY (`attr_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品属性' ROW_FORMAT = Dynamic;
 
+ALTER TABLE `pms_attr`
+ADD COLUMN `value_type` tinyint(4) NULL COMMENT '值类型[0-只允许单个值 , 1-允许多个值]' AFTER `show_desc`;
 -- ----------------------------
 -- Table structure for pms_attr_attrgroup_relation
 -- ----------------------------

@@ -15,6 +15,7 @@ import site.javaee.mall.product.entity.AttrEntity;
 import site.javaee.mall.product.service.AttrService;
 import site.javaee.mall.common.utils.PageUtils;
 import site.javaee.mall.common.utils.R;
+import site.javaee.mall.product.vo.AttrVo;
 
 
 /**
@@ -41,8 +42,13 @@ public class AttrController {
         return R.ok().put("page", page);
     }
 
+    @RequestMapping("/base/list/{catelogId}")
+    public R catelogList(@RequestParam Map<String, Object> params,
+                         @PathVariable("catelogId") Long catelogId) {
+        PageUtils page = attrService.queryBaseAttr(params,catelogId);
 
-
+        return R.ok().put("page", page);
+    }
 
 
     /**
@@ -59,13 +65,21 @@ public class AttrController {
     /**
      * 保存
      */
+//    @RequestMapping("/save")
+//    //@RequiresPermissions("product:attr:save")
+//    public R save(@RequestBody AttrEntity attr) {
+//        attrService.save(attr);
+//
+//        return R.ok();
+//    }
     @RequestMapping("/save")
-    //@RequiresPermissions("product:attr:save")
-    public R save(@RequestBody AttrEntity attr) {
-        attrService.save(attr);
+    //@RequiresPermissions("product:attr:update")
+    public R update(@RequestBody AttrVo attrVo) {
+        attrService.saveAttr(attrVo);
 
         return R.ok();
     }
+
 
     /**
      * 修改
@@ -77,6 +91,7 @@ public class AttrController {
 
         return R.ok();
     }
+
 
     /**
      * 删除
