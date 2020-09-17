@@ -15,6 +15,7 @@ import site.javaee.mall.product.entity.AttrEntity;
 import site.javaee.mall.product.service.AttrService;
 import site.javaee.mall.common.utils.PageUtils;
 import site.javaee.mall.common.utils.R;
+import site.javaee.mall.product.vo.AttrRespVo;
 import site.javaee.mall.product.vo.AttrVo;
 
 
@@ -42,10 +43,11 @@ public class AttrController {
         return R.ok().put("page", page);
     }
 
-    @RequestMapping("/base/list/{catelogId}")
+    @RequestMapping("/{attrType}/list/{catelogId}")
     public R catelogList(@RequestParam Map<String, Object> params,
-                         @PathVariable("catelogId") Long catelogId) {
-        PageUtils page = attrService.queryBaseAttr(params,catelogId);
+                         @PathVariable("catelogId") Long catelogId,
+                         @PathVariable("attrType") String attrType) {
+        PageUtils page = attrService.queryBaseAttr(params, catelogId,attrType);
 
         return R.ok().put("page", page);
     }
@@ -57,9 +59,9 @@ public class AttrController {
     @RequestMapping("/info/{attrId}")
     //@RequiresPermissions("product:attr:info")
     public R info(@PathVariable("attrId") Long attrId) {
-        AttrEntity attr = attrService.getById(attrId);
-
-        return R.ok().put("attr", attr);
+//        AttrEntity attr = attrService.getById(attrId);
+        AttrRespVo attrRespVo = attrService.getAttrInfo(attrId);
+        return R.ok().put("attr", attrRespVo);
     }
 
     /**
@@ -74,7 +76,7 @@ public class AttrController {
 //    }
     @RequestMapping("/save")
     //@RequiresPermissions("product:attr:update")
-    public R update(@RequestBody AttrVo attrVo) {
+    public R save(@RequestBody AttrVo attrVo) {
         attrService.saveAttr(attrVo);
 
         return R.ok();
@@ -86,9 +88,10 @@ public class AttrController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:attr:update")
-    public R update(@RequestBody AttrEntity attr) {
-        attrService.updateById(attr);
-
+//    public R update(@RequestBody AttrEntity attr) {
+    public R update(@RequestBody AttrVo attrVo) {
+//        attrService.updateById(attrVo);
+        attrService.updateAttr(attrVo);
         return R.ok();
     }
 
