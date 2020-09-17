@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import site.javaee.mall.common.constant.ProductConstant;
 import site.javaee.mall.common.utils.PageUtils;
 
@@ -202,8 +203,9 @@ private AttrAttrgroupRelationDao attrAttrgroupRelationDao;
         //2、当前分组只能关联别的分组没有引用的绑定
         //2.1、当前分类下的其他分组
         QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("catelog_id",catelogId).ne("attr_groupId",attrGroupId);
+        queryWrapper.eq("catelog_id",catelogId).ne("attr_group_id",attrGroupId);
         List<AttrGroupEntity> attrGroups = attrGroupService.list(queryWrapper);
+
         //2.2、这些分组关联的属性
         List<Long> attrGroupIds = attrGroups.stream().map((item) -> {
             return item.getAttrGroupId();
@@ -211,12 +213,19 @@ private AttrAttrgroupRelationDao attrAttrgroupRelationDao;
         QueryWrapper<AttrAttrgroupRelationEntity> queryWrapper2 = new QueryWrapper<>();
         queryWrapper2.in("attr_group_id",attrGroupIds);
         List<AttrAttrgroupRelationEntity> relationEntities = attrAttrgroupRelationService.list(queryWrapper2);
+        log.warn("\n--------------------------\n"
+                +relationEntities.toString()
+                +"\n--------------------------");
         //2.3、从当前分类的所有属性中移除这些属性
         List<Long> attrIds = relationEntities.stream().map((item) -> {
             return item.getAttrId();
         }).collect(Collectors.toList());
         QueryWrapper<AttrEntity> queryWrapper3 = new QueryWrapper<>();
-        queryWrapper.eq("catelog_id",catelogId).notIn("attr_id",attrIds);
+        queryWrapper.eq("catelog_id",catelogId);
+        if(attrIds != null && attrIds.size()!=0){
+            queryWrapper.notIn("attr_id",attrIds);
+        }
+
 //        List<AttrEntity> attrEntities = this.list(queryWrapper3);
         String key = (String)params.get("key");
         if(!StringUtils.isEmpty(key)){
