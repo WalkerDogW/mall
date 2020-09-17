@@ -5,8 +5,14 @@ spring:
 
   cloud:
     nacos:
+      discovery:
+        #        server-addr: 192.168.117.129:8848
+        #        server-addr: 192.168.100.138:8848
+        server-addr: www.mall.com:8848
       config:
-        server-addr: 192.168.117.129:8848
+        #        server-addr: 192.168.117.129:8848
+        #        server-addr: 192.168.100.138:8848
+        server-addr: www.mall.com:8848
         #主配置文件
         namespace: 4d414d18-64f9-4f95-8a36-17c12a1ae756
         group: dev

@@ -1,10 +1,12 @@
 package site.javaee.mall.product.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import site.javaee.mall.product.entity.AttrAttrgroupRelationEntity;
 import site.javaee.mall.product.entity.AttrEntity;
 import site.javaee.mall.product.entity.AttrGroupEntity;
+import site.javaee.mall.product.service.AttrAttrgroupRelationService;
 import site.javaee.mall.product.service.AttrGroupService;
 import site.javaee.mall.common.utils.PageUtils;
 import site.javaee.mall.common.utils.R;
@@ -38,6 +42,8 @@ public class AttrGroupController {
     private CategoryService categoryService;
     @Autowired
     private AttrService attrService;
+    @Autowired
+    private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     /**
      * 属性分组关联着的属性
@@ -56,7 +62,7 @@ public class AttrGroupController {
     //@RequiresPermissions("product:attrgroup:list")
     public R attrNoRelationList(@PathVariable("attrGroupId") Long attrGroupId,
                                 @RequestParam Map<String, Object> params) {
-        PageUtils page  = attrService.getNoRelationAttr(params,attrGroupId);
+        PageUtils page = attrService.getNoRelationAttr(params, attrGroupId);
         return R.ok().put("page", page);
     }
 
@@ -71,6 +77,16 @@ public class AttrGroupController {
     }
 
 
+    /**
+     * 新增关联关系
+     */
+    @RequestMapping("/attr/relation")
+    //@RequiresPermissions("product:attrgroup:save")
+    public R save(@RequestBody List<AttrGroupRelationVo> attrGroupRelationVos) {
+
+        attrAttrgroupRelationService.saveBatch(attrGroupRelationVos);
+        return R.ok();
+    }
 
 
     /**
