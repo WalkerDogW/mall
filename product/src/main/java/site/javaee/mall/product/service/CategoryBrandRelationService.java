@@ -6,6 +6,7 @@ import site.javaee.mall.product.entity.BrandEntity;
 import site.javaee.mall.product.entity.CategoryBrandRelationEntity;
 import site.javaee.mall.product.entity.CategoryEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,5 +25,7 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
     void updateBrand(BrandEntity brandEntity);
 
     void updateCategory(CategoryEntity category);
+
+    List<BrandEntity> getBrandsByCatId(Long catId);
 }
 

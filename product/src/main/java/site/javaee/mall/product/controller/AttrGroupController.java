@@ -24,6 +24,7 @@ import site.javaee.mall.common.utils.R;
 import site.javaee.mall.product.service.AttrService;
 import site.javaee.mall.product.service.CategoryService;
 import site.javaee.mall.product.vo.AttrGroupRelationVo;
+import site.javaee.mall.product.vo.AttrGroupWithAttrsVo;
 
 
 /**
@@ -156,5 +157,20 @@ public class AttrGroupController {
 
         return R.ok();
     }
+
+
+    /**
+     * 获取分类下所有分组及其关联的属性
+     */
+    @RequestMapping("{catelogId}/withattr")
+    //@RequiresPermissions("product:attrgroup:delete")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId" )Long catelogId) {
+        //1、查出当前分类下的所有分组
+        //2、查出每个属性分组的所有属性
+        List<AttrGroupWithAttrsVo> attrGroupWithAttrsVos =  attrGroupService.getAttrGroupWithAttrsBycatelogId(catelogId);
+        return R.ok().put("data",attrGroupWithAttrsVos);
+    }
+
+
 
 }
