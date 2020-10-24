@@ -1,15 +1,18 @@
 #\u4EE3\u7801\u751F\u6210\u5668\uFF0C\u914D\u7F6E\u4FE1\u606F
 
-mainPath=bardese.com.wecom
+#mainPath=site.javaee.mall
+mainPath=com.bardese
 #\u5305\u540D
-package=bardese.com.wecom
+#package=site.javaee.mall
+package=com.bardese
+#moduleName=product
 moduleName=wecom
 #\u4F5C\u8005
 author=WalkerDogW
 #Email
 email=WalkerDogW@gmail.com
 #\u8868\u524D\u7F00(\u7C7B\u540D\u4E0D\u4F1A\u5305\u542B\u8868\u524D\u7F00)
-tablePrefix=Tecul_
+tablePrefix=TECUL
 
 #\u7C7B\u578B\u8F6C\u6362\uFF0C\u914D\u7F6E\u4FE1\u606F
 tinyint=Integer
@@ -56,6 +59,7 @@ DATE=Date
 DATETIME=Date
 TIMESTAMP=Date
 TIMESTAMP(6)=Date
+TIMESTAMP(3)=Date
 
 int8=Long
 int4=Integer
@@ -63,4 +67,3 @@ int2=Integer
 numeric=BigDecimal
 
 nvarchar=String
-Uniqueidentifier=String

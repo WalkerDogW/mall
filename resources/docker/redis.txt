@@ -41,4 +41,45 @@ docker exec -it redis redis-cli
 
 
 
+----------------------------redis集群------------------------
+docker network create --driver bridge --subnet 192.169.0.0/16 --gateway 192.169.0.1 redis_net
 
+
+------ shell创建redis节点:
+
+for port in $(seq 1 6); \
+do \
+mkdir -p /docker/redis/node-${port}/conf
+touch /docker/redis/node-${port}/conf/redis.conf
+cat << EOF > /docker/redis/node-${port}/conf/redis.conf
+port 6379
+bind 0.0.0.0
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-announce-ip 192.169.0.1${port}
+cluster-announce-port 6379
+cluster-announce-bus-port 16379
+appendonly yes
+EOF
+done
+
+for port in $(seq 1 6); \
+do \
+docker run -d -p 637${port}:6379 -p 1637${port}:16379 --name redis-${port} \
+-v /docker/redis/node-${port}/data:/data \
+-v /docker/redis/node-${port}/conf/redis.conf:/etc/redis/redis.conf \
+--net redis_net --ip 192.169.0.1${port} redis redis-server /etc/redis/redis.conf
+done
+
+------- 关联集群
+docker exec redis-1 -it /bin/sh
+cd  /usr/local/bin
+redis-cli --cluster create \
+192.169.0.11:6379 192.169.0.12:6379  192.169.0.13:6379  \
+192.169.0.14:6379 192.169.0.15:6379  192.169.0.16:6379  \
+--cluster-replicas 1
+
+-------- 测试
+redis-cli -c 
+cluster info
+cluster nodes

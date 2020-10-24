@@ -11,15 +11,15 @@ spring:
     # username: root
     # password: aliyunroot
     #oracle配置
-#    driverClassName: oracle.jdbc.OracleDriver
-#    url: jdbc:oracle:thin:@192.168.100.80:1521:orcl
-#    username: T1bds
-#    password: Badese123321$$$$$$
+    driverClassName: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.100.80:1521:orcl
+    username: T1bds
+    password: Badese123321$$$$$$
     #SQLServer配置
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://192.168.100.80:1433;DatabaseName=BoshiT1
-    username: sa
-    password: 123!@#qwe
+    #    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    #    url: jdbc:sqlserver://192.168.10.10:1433;DatabaseName=renren_fast
+    #    username: sa
+    #    password: 123456
     #PostgreSQL配置
   #    driverClassName: org.postgresql.Driver
   #    url: jdbc:postgresql://192.168.10.10:5432/renren_fast
@@ -58,6 +58,6 @@ pagehelper:
 #指定数据库，可选值有【mysql、oracle、sqlserver、postgresql、mongodb】
 renren:
   # database: mysql
-  database: sqlserver
+  database: oracle
 
 

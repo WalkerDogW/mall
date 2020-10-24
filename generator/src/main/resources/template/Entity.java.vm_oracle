@@ -2,6 +2,7 @@ package ${package}.${moduleName}.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableField;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ public class ${className}Entity implements Serializable {
 	#if($column.columnName == $pk.columnName)
 @TableId
 	#end
+@TableField("\"${column.columnName}\"")
 private $column.attrType $column.columnName;
 #end
 

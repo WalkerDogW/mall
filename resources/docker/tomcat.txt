@@ -1,0 +1,5 @@
+docker pull tomcat:9.0
+
+docker run -d -p 3355:8080 --name tomcat tomcat:9.0
+
+docker exec -it tomcat /bin/bash
